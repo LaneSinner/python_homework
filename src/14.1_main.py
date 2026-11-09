@@ -1,4 +1,4 @@
-from my_project.src.models import Product, Category
+from models import Product, Category
 
 if __name__ == "__main__":
     product1 = Product(

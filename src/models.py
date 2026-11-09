@@ -22,13 +22,26 @@ class Product:
 
     @property
     def price(self):
-        self.__price
+       return self.__price
     @price.setter
     def price(self,new_price:float):
         if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
         else:
             self.__price = new_price
+
+
+    def __add__(self, other):
+        if not isinstance(other, Product):
+            return NotImplemented
+
+        self_sum = self.price * self.quantity
+        other_sum = other.price * other.quantity
+        return self_sum + other_sum
+
+
+    def __str__(self):
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
 
 
@@ -59,3 +72,7 @@ class Category:
             product_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return product_str
 
+
+    def __str__(self):
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
