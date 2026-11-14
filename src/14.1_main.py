@@ -1,4 +1,4 @@
-from models import Product, Category
+from models import Category, Product
 
 if __name__ == "__main__":
     product1 = Product(
@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     category1 = Category(
         "Смартфоны",
-        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+        "Описание",
         [product1, product2, product3],
     )
 
