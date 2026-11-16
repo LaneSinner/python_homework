@@ -1,6 +1,6 @@
 import pytest
 
-from src.models import Category, Product
+from src.models import Category, Product, Smartphone, LawnGrass
 
 
 @pytest.fixture(autouse=True)
@@ -157,3 +157,54 @@ def test_invalid_price_is_not_set(product1, new_price, capsys):
 def test_category_rejects_non_product(category1, value):
     with pytest.raises(TypeError):
         category1.add_product(value)
+
+def test_mixin_product(capsys):
+    product = Product("Продукт1", "Описание продукта", 1200, 10)
+
+    captured = capsys.readouterr()
+    expected = "Product('Продукт1', 'Описание продукта', 1200, 10)"
+
+    assert captured.out.strip() == expected
+    assert repr(product) == expected
+
+
+def test_mixin_new_product(capsys):
+    product_data = {
+        "name": "Продукт1",
+        "description": "Описание продукта",
+        "price": 1200,
+        "quantity": 10,
+    }
+    product = Product.new_product(product_data)
+
+    captured = capsys.readouterr()
+    expected = "Product('Продукт1', 'Описание продукта', 1200, 10)"
+
+    assert captured.out.strip() == expected
+    assert repr(product) == expected
+
+
+def test_mixin_smartphone(capsys):
+    smartphone = Smartphone(
+        "Samsung", "Смартфон", 100000, 5,
+        "Высокая", "S23", 256, "черный",
+    )
+
+    captured = capsys.readouterr()
+    expected = "Smartphone('Samsung', 'Смартфон', 100000, 5)"
+
+    assert captured.out.strip() == expected
+    assert repr(smartphone) == expected
+
+
+def test_mixin_lawn_grass(capsys):
+    grass = LawnGrass(
+        "Газон", "Зеленый газон", 500, 20,
+        "Россия", "7 дней", "зеленый",
+    )
+
+    captured = capsys.readouterr()
+    expected = "LawnGrass('Газон', 'Зеленый газон', 500, 20)"
+
+    assert captured.out.strip() == expected
+    assert repr(grass) == expected
