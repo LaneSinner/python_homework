@@ -208,3 +208,27 @@ def test_mixin_lawn_grass(capsys):
 
     assert captured.out.strip() == expected
     assert repr(grass) == expected
+
+
+def test_average_price():
+    products = [
+        Product("Товар 1", "Описание", 100, 1),
+        Product("Товар 2", "Описание", 200, 1),
+    ]
+    category = Category("Категория", "Описание", products)
+
+    assert category.average_price() == 150
+
+
+def test_average_price_of_empty_category():
+    category = Category("Категория", "Описание", [])
+
+    assert category.average_price() == 0
+
+
+def test_product_with_zero_quantity():
+    with pytest.raises(
+        ValueError,
+        match="Товар с нулевым количеством не может быть добавлен",
+    ):
+        Product("Товар", "Описание", 100, 0)
